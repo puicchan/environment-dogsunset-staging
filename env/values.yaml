@@ -12,3 +12,21 @@ cleanup:
   Annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: hook-succeeded
+PipelineSecrets:
+  DockerConfig: '{"auths":{"pcjenkinsx9.azurecr.io":{"auth":"cGNqZW5raW5zeDk6bjBqeEtBS2k1T3ViK0s1Vno1Mmp0eTlIaENuTzZpci8="}}}'
+controllerbuild: {}
+expose:
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+  config:
+    domain: 40.114.66.85.nip.io
+    exposer: Ingress
+    http: "true"
+jenkins:
+  Servers:
+    Global:
+      EnvVars:
+        DOCKER_REGISTRY: pcjenkinsx9.azurecr.io
+        TILLER_NAMESPACE: kube-system
+prow: {}
